@@ -22,7 +22,7 @@ public final class StringedInstrument extends MusicalInstrument implements INeed
      * Конструктор класса.
      */
     public StringedInstrument(String name, String timbre, double price, boolean isBroken, double volume, boolean hasBow) {
-        this.name = name.toUpperCase();
+        this.name = name;
         this.timbre = Timbre.valueOf(timbre.toUpperCase());
         if (price > 0)
             this.price = price;

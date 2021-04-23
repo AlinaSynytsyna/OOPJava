@@ -1,12 +1,7 @@
 package com.java.inheritance.hierarchy.base_class;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import com.java.inheritance.exceptions.BrokenInstrumentException;
-import com.java.inheritance.hierarchy.implementation.PercussionInstrument;
-import com.java.inheritance.hierarchy.implementation.StringedInstrument;
-import com.java.inheritance.hierarchy.implementation.WindInstrument;
 import com.java.inheritance.hierarchy.interfaces.ICarriable;
 
 import java.io.Serializable;
@@ -14,13 +9,6 @@ import java.io.Serializable;
 /**
  * Базовый абстрактный класс - музыкальный инструмент.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = StringedInstrument.class, name = "Stringed"),
-        @JsonSubTypes.Type(value = WindInstrument.class, name = "Wind"),
-        @JsonSubTypes.Type(value = PercussionInstrument.class, name = "Percussion")}
-)
 public abstract class MusicalInstrument implements ICarriable, Serializable {
     /**
      * Название музыкального инструмента.
@@ -41,7 +29,7 @@ public abstract class MusicalInstrument implements ICarriable, Serializable {
     /**
      * Громкость инструмента.
      */
-    protected double volume;
+    protected transient double volume;
 
     public MusicalInstrument() {
         name = "";

@@ -1,14 +1,13 @@
 package com.java.inheritance.collections;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import com.java.inheritance.hierarchy.base_class.MusicalInstrument;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public class Orchestra implements Iterable<MusicalInstrument> {
+
+public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
     private MusicalInstrument[] instruments;
 
     public Orchestra() {

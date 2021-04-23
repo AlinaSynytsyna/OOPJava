@@ -29,7 +29,7 @@ public final class PercussionInstrument extends MusicalInstrument implements INe
      * Конструктор класса.
      */
     public PercussionInstrument(String name, String timbre, double price, boolean isBroken, double volume, boolean hasSticks, int instrumentType) {
-        this.name = name.toUpperCase();
+        this.name = name;
         this.timbre = Timbre.valueOf(timbre.toUpperCase());
         if (price > 0)
             this.price = price;

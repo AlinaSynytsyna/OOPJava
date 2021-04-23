@@ -20,7 +20,7 @@ public final class WindInstrument extends MusicalInstrument {
      * Конструктор класса.
      */
     public WindInstrument(String name, String timbre, double price, boolean isBroken, double volume, int type) {
-        this.name = name.toUpperCase();
+        this.name = name;
         this.timbre = Timbre.valueOf(timbre.toUpperCase());
         if (price > 0)
             this.price = price;
