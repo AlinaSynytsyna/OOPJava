@@ -4,10 +4,16 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Класс для сериализации и десериализации класса Orchestra.
+ *
+ * @see Orchestra
+ */
 public class OrchestraSerializer {
-
-
-    public static void serialize(Orchestra orchestra) throws IOException {
+    /**
+     * Сериализовать объект класса Orchestra.
+     */
+    public static void serialize(Orchestra orchestra) {
         DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM-dd HHmmss");
         LocalDateTime NOW = LocalDateTime.now();
         try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(String.format("./src/main/resources/Orchestra %s.dat",
@@ -19,7 +25,10 @@ public class OrchestraSerializer {
             System.out.println(ex.getMessage());
         }
     }
-
+    /**
+     * Десериализовать объект класса Orchestra.
+     * @param fileName - имя файла с данными без расширения.
+     */
     public static Orchestra deserialize(String fileName) throws ClassNotFoundException {
         try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(String.format("./src/main/resources/%s.dat", fileName)))) {
             return (Orchestra) input.readObject();
