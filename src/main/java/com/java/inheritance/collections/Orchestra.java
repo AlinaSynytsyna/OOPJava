@@ -177,6 +177,9 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         return result;
     }
 
+    /**
+     * Получить стоимость всего оркестра.
+     */
     public double getTotalOrchestraPrice() {
         OrchestraStatistics os = () -> {
             double result = 0;
@@ -188,6 +191,9 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         return os.getPrice();
     }
 
+    /**
+     * Получить стоимость инструментов по типу.
+     */
     public double getInstrumentsPriceByType(Class<? extends MusicalInstrument> clazz) {
         OrchestraStatistics os = () -> {
             double result = 0;
@@ -199,7 +205,9 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         };
         return os.getPrice();
     }
-
+    /**
+     * Проверка, все ли инструменты в оркестре одного типа?
+     */
     public boolean isSingleTypeInstrumentsOrchestra() {
         Predicate<MusicalInstrument> allWind = instrument -> instrument.getClass() == WindInstrument.class;
         Predicate<MusicalInstrument> allStringed = instrument -> instrument.getClass() == StringedInstrument.class;
