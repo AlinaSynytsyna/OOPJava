@@ -2,10 +2,14 @@ package com.java.inheritance.collections;
 
 
 import com.java.inheritance.hierarchy.base_class.MusicalInstrument;
+import com.java.inheritance.hierarchy.implementation.PercussionInstrument;
+import com.java.inheritance.hierarchy.implementation.StringedInstrument;
+import com.java.inheritance.hierarchy.implementation.WindInstrument;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 /**
  * Коллекция музыкальных инструментов.
@@ -25,6 +29,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
     public int getCount() {
         return instruments.length;
     }
+
     /**
      * Добавить новый музыкальный инструмент в коллекцию.t
      */
@@ -32,8 +37,10 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         instruments = Arrays.copyOf(instruments, instruments.length + 1);
         instruments[instruments.length - 1] = instrument;
     }
+
     /**
      * Добавить новый музыкальный инструмент в коллекцию на определенную позицию.
+     *
      * @param index позиция, на которую надо вставить новый элемент
      */
     public void add(MusicalInstrument instrument, int index) {
@@ -49,8 +56,10 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         }
         instruments = temp;
     }
+
     /**
      * Убрать музыкальный инструмент из коллекции на определенной позиции.
+     *
      * @param index позиция, с которой надо убрать элемент
      */
     public void remove(int index) {
@@ -66,12 +75,14 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         }
         instruments = temp;
     }
+
     /**
      * Убрать музыкальный инструмент из коллекции.
      */
     public void remove() {
         instruments = Arrays.copyOf(instruments, instruments.length - 1);
     }
+
     /**
      * Получить музыкальный инструмент по индексу.
      */
@@ -80,6 +91,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
             throw new ArrayIndexOutOfBoundsException();
         return instruments[index];
     }
+
     /**
      * Установить музыкальный инструмент по индексу.
      */
@@ -88,6 +100,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
             throw new ArrayIndexOutOfBoundsException();
         instruments[index] = instrument;
     }
+
     /**
      * Сортировать коллекцию по имени инструментов.
      */
@@ -103,6 +116,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
             }
         }
     }
+
     /**
      * Сортировать коллекцию по цене инструментов.
      */
@@ -118,8 +132,10 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
             }
         }
     }
+
     /**
      * Найти инструменты определенного типа.
+     *
      * @param classToFind - тип инструментов, которые нужно найти в коллекции
      */
     public MusicalInstrument[] findInstrumentsByType(Class<? extends MusicalInstrument> classToFind) {
@@ -132,6 +148,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         }
         return result;
     }
+
     /**
      * Найти инструменты по имени.
      */
@@ -145,6 +162,7 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         }
         return result;
     }
+
     /**
      * Найти сломанные инструменты.
      */
@@ -159,7 +177,44 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         return result;
     }
 
+    public double getTotalOrchestraPrice() {
+        OrchestraStatistics os = () -> {
+            double result = 0;
+            for (MusicalInstrument i : instruments) {
+                result += i.getPrice();
+            }
+            return result;
+        };
+        return os.getPrice();
+    }
+
+    public double getInstrumentsPriceByType(Class<? extends MusicalInstrument> clazz) {
+        OrchestraStatistics os = () -> {
+            double result = 0;
+            for (MusicalInstrument i : instruments) {
+                if (i.getClass() == clazz)
+                    result += i.getPrice();
+            }
+            return result;
+        };
+        return os.getPrice();
+    }
+
+    public boolean isSingleTypeInstrumentsOrchestra() {
+        Predicate<MusicalInstrument> allWind = instrument -> instrument.getClass() == WindInstrument.class;
+        Predicate<MusicalInstrument> allStringed = instrument -> instrument.getClass() == StringedInstrument.class;
+        Predicate<MusicalInstrument> allPercussion = instrument -> instrument.getClass() == PercussionInstrument.class;
+        return (Arrays.stream(instruments).allMatch(allWind) ||
+                Arrays.stream(instruments).allMatch(allStringed) ||
+                Arrays.stream(instruments).allMatch(allPercussion));
+    }
+
     public Iterator<MusicalInstrument> iterator() {
         return Arrays.stream(instruments).iterator();
     }
 }
+
+interface OrchestraStatistics {
+    double getPrice();
+}
+
