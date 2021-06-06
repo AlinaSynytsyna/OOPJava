@@ -217,7 +217,9 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
                 Arrays.stream(instruments).allMatch(allStringed) ||
                 Arrays.stream(instruments).allMatch(allPercussion));
     }
-
+    /**
+     * Синхронизированный метод для игры на инструменте из коллекции.
+     */
     public synchronized void playInstrument(int index) throws BrokenInstrumentException {
         if(!instruments[index].getIsPlaying()) {
             try {
@@ -232,6 +234,9 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
                 Thread.currentThread().getName(),
                 instruments[index].getName());
     }
+    /**
+     * Синхронизированный метод для прекращения игры на инструменте.
+     */
     public synchronized void stopPlayInstrument(int index) {
         if(instruments[index].getIsPlaying()) {
             try {
