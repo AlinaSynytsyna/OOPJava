@@ -30,6 +30,7 @@ public final class WindInstrument extends MusicalInstrument {
             this.volume = 0;
         else this.volume = Math.min(volume, 1.5);
         this.windInstrumentType = type == 1 ? WindInstrumentType.COPPER : WindInstrumentType.WOODEN;
+        isPlaying = false;
     }
 
     /**
@@ -50,6 +51,7 @@ public final class WindInstrument extends MusicalInstrument {
         this.isBroken = isBroken;
         volume = 0;
         this.windInstrumentType = type == 1 ? WindInstrumentType.COPPER : WindInstrumentType.WOODEN;
+        isPlaying = false;
     }
 
     /**

@@ -34,6 +34,7 @@ public final class StringedInstrument extends MusicalInstrument implements INeed
             this.volume = 1;
         else this.volume = volume;
         this.hasBow = hasBow;
+        isPlaying = false;
     }
 
     /**
@@ -54,6 +55,7 @@ public final class StringedInstrument extends MusicalInstrument implements INeed
         this.isBroken = isBroken;
         volume = 0;
         this.hasBow = hasBow;
+        isPlaying = false;
     }
 
     /**

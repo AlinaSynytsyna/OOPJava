@@ -40,6 +40,7 @@ public final class PercussionInstrument extends MusicalInstrument implements INe
         else this.volume = Math.min(volume, 2);
         this.hasSticks = hasSticks;
         this.percussionInstrumentType = instrumentType == 1 ? PercussionInstrumentType.MEMBRANOPHONE : PercussionInstrumentType.IDIOPHONE;
+        isPlaying = false;
     }
 
     /**
@@ -62,6 +63,7 @@ public final class PercussionInstrument extends MusicalInstrument implements INe
         volume = 0;
         this.hasSticks = hasSticks;
         this.percussionInstrumentType = instrumentType == 1 ? PercussionInstrumentType.MEMBRANOPHONE : PercussionInstrumentType.IDIOPHONE;
+        isPlaying = false;
     }
 
     /**

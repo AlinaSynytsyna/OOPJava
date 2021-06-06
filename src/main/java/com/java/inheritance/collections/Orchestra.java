@@ -1,6 +1,7 @@
 package com.java.inheritance.collections;
 
 
+import com.java.inheritance.exceptions.BrokenInstrumentException;
 import com.java.inheritance.hierarchy.base_class.MusicalInstrument;
 import com.java.inheritance.hierarchy.implementation.PercussionInstrument;
 import com.java.inheritance.hierarchy.implementation.StringedInstrument;
@@ -215,6 +216,32 @@ public class Orchestra implements Iterable<MusicalInstrument>, Serializable {
         return (Arrays.stream(instruments).allMatch(allWind) ||
                 Arrays.stream(instruments).allMatch(allStringed) ||
                 Arrays.stream(instruments).allMatch(allPercussion));
+    }
+
+    public synchronized void playInstrument(int index) throws BrokenInstrumentException {
+        if(!instruments[index].getIsPlaying()) {
+            try {
+                instruments[index].playSound();
+                instruments[index].setIsPlaying(true);
+                notifyAll();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else    System.out.printf("Поток %s: 'Музыкальный инструмент %s уже играет!'\n",
+                Thread.currentThread().getName(),
+                instruments[index].getName());
+    }
+    public synchronized void stopPlayInstrument(int index) {
+        if(instruments[index].getIsPlaying()) {
+            try {
+                instruments[index].setIsPlaying(false);
+                wait();
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else System.out.printf("Инструмент %s не играет!\n", instruments[index].getName());
     }
 
     public Iterator<MusicalInstrument> iterator() {

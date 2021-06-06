@@ -31,12 +31,15 @@ public abstract class MusicalInstrument implements ICarriable, Serializable {
      */
     protected transient double volume;
 
+    protected boolean isPlaying;
+
     public MusicalInstrument() {
         name = "";
         timbre = Timbre.UNDEFINED;
         price = 0;
         isBroken = false;
         volume = 0;
+        isPlaying = false;
     }
 
     /**
@@ -75,6 +78,13 @@ public abstract class MusicalInstrument implements ICarriable, Serializable {
     }
 
     /**
+     * Возвращает значение поля isPlaying.
+     */
+    public synchronized boolean getIsPlaying() {
+        return isPlaying;
+    }
+
+    /**
      * Устанавливает значение поля name.
      */
     public void setName(String value) {
@@ -101,6 +111,13 @@ public abstract class MusicalInstrument implements ICarriable, Serializable {
      */
     public void setIsBroken(boolean value) {
         isBroken = value;
+    }
+
+    /**
+     * Устанавливает значение поля isPlaying.
+     */
+    public void setIsPlaying(boolean value) {
+        isPlaying = value;
     }
 
     /**
